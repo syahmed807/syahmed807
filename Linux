@@ -1,0 +1,1301 @@
+host name as per convience : 
+ host hostname | awk '{split($1,host,"."); print host[1], "->", $4}'
+
+…………………………………………
+ 
+Mqm cut as per convience : 
+
+pbrun su mqm -c "endmqm $(dspmq | cut -c 8-15) && delmqm $(dspmq | cut -c 8-15)" 
+
+
+Delete mqm :
+
+COMMAND='pbrun su mqm -c "endmqm -w $(dspmq | cut -c 8-15) && dltmqm $(dspmq | cut -c 8-15)"'
+
+
+……………………………………………………………………………………..
+
+CSR issue  : 
+I noticed two problems and corrected them.
+1.	5 directories (TDOPDX1P, TDOPT11P, TDOPT21P, TDOPTX1P, TDWWT01P) under /usr/app/oracle/admin/ were owned by root:root, so I corrected them as oradpb03:oinstall
+2.	The content for these 5 directories were inside one more level, so I moved them to parent level.
+a.	i.e. The content for /usr/app/oracle/admin/TDOPDX1P was actually inside /usr/app/oracle/admin/TDOPDX1P/TDOPDX1P directory.
+So, I did mv /usr/app/oracle/admin/TDOPDX1P/TDOPDX1P/* /usr/app/oracle/admin/TDOPDX1P/ and rmdir /usr/app/oracle/admin/TDOPDX1P/TDOPDX1P
+
+………………………………………………………………………………………………..
+CSR start or stop :
+/usr/app/grid/product/11.2.0.4/bin/crsctl stop crs -f
+/usr/app/grid/product/11.2.0.4/bin/crsctl start crs
+
+
+
+service oracleasm start
+service oracleasm stop
+
+
+...............
+powerpath start. stop
+………………………………………………………………………………………………
+
+
+
+Looping with Sed : 
+while read node ; do sed "s/name\ hqi.*/name\ $node/g" yaml >> output.yaml ;i done < node
+
+
+
+2 while loops in one file :
+
+
+
+while read server node ; do sed "s/\*name\ hvn.*/\*name\ $node/" importyaml | sed "s/\*name\ search_string\*name\$server/" >> out.yaml ; done < servers
+
+
+
+while read server node ; do sed "s/\*name\ hqi.*/\*name\ $node/" importyaml | sed "s/\*name\ search_string/\*name\ $server/" >> out.yaml ; done < servers
+
+
+
+
+multiple yamls :
+
+
+ while read hosts ips ; do sed "s/\hqi.*/\ $hosts/" hosts1 | sed "s/\192.168.*/\$server/" >> out.yaml ; done < com
+
+
+
+
+
+
+ while read hosts ips ; do sed "s/\hqi.*/\ $hosts/" hosts1 | sed "s/\192.168.*/\$server/" >> out.yaml ; done < com
+
+
+
+
+..........................
+
+Multiple replace with sed
+while read host ip ; do sed "s/hostname/$host/g;s/192\.168\.192\.1/$ip/g" source ; done < datafile
+
+
+
+
+JSON :
+while read host ip ; do sed "s/hostname/$host/g;s/192\.168\.198\.1/$ip/g" json_template ; done < data
+
+
+
+
+
+while read host ip project ; do sed "s/hostname/$host/g;s/192\.168\.192\.1/$ip/g;s/pcode/$project/g" json_template >> E1_JSON ; done < data
+
+……………………………………………………………………………………………………………………………………………………………………………………………………………………
+
+Quick Shell Commands .
+
+Quick Shell Commands
+
+To find the non matching files in a directory
+
+grep -L 'pattern' filename*
+
+Find the size in GiB of a disk
+
+echo $((512*$(cat /sys/block/sda/size)/(2**30))) #replace sda with desired disk
+
+Print WWPNs on a host
+
+cat /sys/class/fc_host/host*/port_name
+
+<or>
+
+systool -c fc_host -A port_name 
+
+Copy a file with date suffix as a backup
+
+cp /etc/inittab{,_$(date +"%m%d%y")} #replace /etc/inittab with desired file 
+
+List all SAN disks with EMC pseudo name and LUN ID
+
+powermt display device=all | sed -n "/^Pseudo\|^Logical/s/\(.*\)=\(.*\)/\2/gp" | awk '{print $1}' | paste - - | sort
+
+List all SAN disks with EMC Pseudo name, LUN ID and size (in GiB)
+
+join <(powermt display device=all | sed -n "/^Pseudo\|^Logical/s/\(.*\)=\(.*\)/\2/gp" | awk '{print $1}' | paste - - | sort) <(awk '{split(FILENAME,filepath,"/"); printf "%s %.0f\n",filepath[4],(($0*512)/2^30)}' /sys/block/emcpower*/size | sort)
+
+List all ASM disks with size and corresponding disk group
+
+Execute the following command as orcrs user
+
+sqlplus -S "/ as sysasm" <<< $'set pagesize 0 \n set feedback off \n SELECT d.name, ROUND(d.total_mb/1024,0), dg.name FROM v$asm_diskgroup dg,v$asm_disk d WHERE dg.group_number=d.group_number ORDER BY dg.name;'
+
+List ASM disks with corresponding block device mapping
+
+ls -l /dev/oracleasm/disks/ | grep -v '^total' | awk '{gsub(/,/,"",$5);print $NF;system("grep \"\\b"$5"\\b[[:space:]]*\\b"$6"\\b\" /proc/partitions");}' | paste - - | column -t 
+
+Print all partitions in a disk with size in GiB
+
+parted -s /dev/sda unit GiB print #replace sda with desired disk 
+
+List top 10 process by memory usage
+
+ps aux --sort -rss | head
+
+Convert short host name to fqdn (to be used for Puppet mco push)
+
+server.list is the input file with short host names, one per host per line.
+
+while read server; do host $server | cut -d' ' -f1; done < server.list > server.fqdn   
+
+Retrieve switch port information for an ethernet device
+
+tcpdump -v -i eth0 -s 1500 -c 1 '(ether[20:2]=0x2000)' and not udp #replace eth0 with desired interface
+…………………………………………………………………………….
+
+Mail through Linux : 
+
+matiu@matiu-laptop:~$ mail -a doc.jpg someone@somewhere.com
+Subject: testing
+
+This is a test
+EOT
+ctrl+d when you're done typing.
+…………………………………………………………………..
+Join Cut paste Convert : 
+
+$ join employee.txt bonus.txt
+
+
+Convert files to upper case
+$ tr a-z A-Z < employee.txt
+
+Lower case : 
+$ tr A-Z a-z < department.txt
+...............................
+Find out all the jpg images and archive it.
+
+# find / -name *.jpg -type f -print | xargs tar -cvzf
+images.tar.gz
+....................................
+Display the 1st field (employee name) from a colon delimited file
+$ cut -d: -f 1 names.txt
+$ cut -d: -f 1,3 names.txt
+
+Display the status of the filesystem using option –f
+$ stat -f /
+
+..
+paste file1 file2
+will print the two files colum by column
+
+
+……………………………………………………………………………..
+
+Vi Tricks : 
+
+Deletes everything before curser : 2 lines delete before 2dk
+same effect as 3dd but upwards means after curser.
+
+
+search and delete
+
+
+:g/wordwhichyouwanttoremove/d
+(*) to select the continued word .
+....................
+
+
+to remove a word from all lines .
+
+....................................
+how to join two lines ..
+
+ :1,50 global /^/ join
+............................
+
+
+
+Delete empty lines
+
+:g/^$/d
+
+
+...add anything for all lines
+
+:%s/^/foo: /
+
+where foo: is the character which will be added in front of all the lines in the vim.
+
+…………………………………………………………………………………………………………
+
+
+Process Dead but PID still Exists :
+
+
+ 607  service nslcd status
+  608  rm /var/run/nslcd/nslcd.pid
+  609  service nslcd restart
+  610  service nslcd restart
+  611  cd /var/run/nslcd/
+  612  ls
+  613  tail -n 60 /var/log/messages
+  614  df -h
+  615  cd /var/tmp/
+  616  ls
+  617  du -sh
+  618  cd /var/log/
+  619  du -sh
+  620  ls
+  621  du -h
+  622  du -sh
+  623  du -sh *
+  624  du -sh * |grep G
+  625  cat /dev/null >iptables
+  626  service iptables restart
+  627  ls
+  628  service nslcd status
+  629  service nslcd restart
+  630  service nslcd restart
+  631  service nslcd status
+
+…………………………………………………………………………………….
+
+Replace comma with a New line : 
+tr -s ',' '\n' < oldfile > newfile
+
+………………………….
+
+Kernal Updating Issue : 
+
+A failure occured during the upgrading of your latest kernel.  Check
+the files in /boot/grub/.  You should find the actual grub.conf file
+that your system is using for booting.   Edit that file and replace
+all references to the old .667 kernel with the  .681_FC3 kernel
+equivalents.  You need to use the newer kernel because the older
+kernel was removed. Then fix the broken symbolic link in /etc with the
+following:
+
+# ln -sf /boot/grub/grub.conf /etc/grub.conf
+                ^
+                 |
+   full path is not necrssary if you are in /boot/grub/
+
+
+
+......................
+These steps resolved my problem:
+
+1. Remove the kernel version "2.6.18-308.1.1.el5.i686" from the system. # yum remove kernel-2.6.18-308.1.1.el5 
+2. Then remove /etc/grub.conf from the system. # rm /etc/grub.conf 
+3. Create a new symbolic link of /boot/grub/grub.conf targeting to /etc/grub.conf # ln -s /boot/grub/grub.conf /etc/grub.conf 
+4. Now, install the new kernel using yum command. # yum install kernel 
+5. Reboot the machine
+6. Confirm from /etc/grub.conf file, whether new kernel entry is reflecting in it or not.
+…………………………………………………………………………………………………………
+
+Who reboot the server : 
+ 1001  who -b
+ 1002  last reboot
+ 1003  cat /var/log/boot.log
+ 1004  cat /var/log/boot.log |less
+ 1005  grep reboot /home/*/.bash_history
+
+…………………………………………………………………………………………………………
+
+Server got in maintaince forgot password : 
+Restart server 
+
+--> press Esc 
+--->  Select kernal and type e 
+---> add init=/bin/bash " at the end of the kernal line"
+---> reboot 
+---> it will prompt you to bin mode 
+there 
+---> Rewrite the partition in read write mode
+mount -o remount,rw /
+
+--> you can change the password 
+........................................
+
+Kernal panic : 
+Go to previous kernel : 
+by :
+
+1->Reboot
+2-> press older kernal 
+3-> go to older kernal and type 
+4-> yum reinstall kernel.x86_64
+…………………………………………………………………………..
+
+Loop Iptables : 
+for i in `cat ipsnd03 `;do echo "-A RH-Firewall-1-INPUT -p tcp -s $i --dport 1025:65535 -j ACCEPT";done
+
+…………………………………………………………………….
+
+Server not starting in maintaince mode : 
+
+if server doesnt starts and shows _
+then go through maintaince mode and edit fstab  entry by commenting out the puuppet lvs and then restart the server .
+
+…………………………………………………………………….
+
+Yum lock during patching : 
+lock during patching .
+
+
+find dublicate pakacges installed 
+and delete one additional package and do 
+yum update -y 
+
+………………………………………………………………………
+
+Sharedmemory :
+
+1. Stop application
+2. Find semaphore ids for apache #ipcs –a
+3. Remove all semaphores for java #ipcrm -s <semid> 
+4. Start the apps
+
+…………………………………………………
+Large DATA and Duplicate lines : 
+
+grep -R word > search a word in file (recursive)
+
+comm -12 file1 file2 > show common difference in  two files
+
+...........
+list duplicate lines in a file
+cat filename | uniq -d -c 
+
+-d -duplicate data
+-c count duplicate data .
+............................
+
+SSH with port 80 : 
+
+527  vim /etc/ssh/sshd_config
+
+Add Port 22
+Port 80
+....................
+  528  service sshd restart
+  529  netstat -ltnp
+  530  iptables -nvL
+  531  service iptables stop
+  532  history
+
+…………………………………………
+
+Using Grep : 
+cat output.log | egrep -i '^h|nas' | awk '{print $1,$2}'
+
+grep starting anything with h and containing nas
+
+(A - after , B - before )
+
+grep -A 1 -B 1 word filename
+Find under all subdirectories :
+
+grep -Ril "text-to-find-here" /
+
+# grep -ri john /home/users 
+
+
+To count number of lines that matches the word .
+# grep -c John /etc/passwd
+2
+You can also get the total number of lines that did not match the specific
+pattern by passing option -cv.
+# grep -cv John /etc/passwd
+39
+............................................
+$ zgrep -i less test-file.txt.gz
+zless - file perusal filter for crt viewing of compressed text
+........................................................
+All line start with Nov 10 " ^indicates starting"
+$ grep "^Nov 10" messages.1
+
+End of the  line 
+$ grep "terminating.$" messages
+
+………………………………………………………………………………………………..
+
+
+VIM loop :
+
+:for i in range(1,10) | put ='192.168.0.'.i | endfor
+
+
+
+for i in range(1,10) | put ='host' | endfor
+
+
+:for i in range(1,10) | put ='143'.i | endfor 
+……………………………………………………………..
+
+Excel : 
+alt+enter - to go to next line in  same cell 
+
+
+………………………………………….
+
+Process managment : 
+who -a "shows all process by running by users "
+
+ps -ef - snapshot
+
+top - everything running
+
+process by particular application processed by a user
+ : ps -u username
+................
+w - who are loged in 
+..................
+
+pkill -u username - kill all process of a particular user !
+
+
+...........
+ 1008  mpstat
+ 1009  iowait
+ 1010  iostat
+ 1011  vmstat
+ 1012  vmstat l
+ 1013  vmstat 1
+ 1014  iostat 1
+ 1015  sar 1 100
+ 1016  sar 1 4
+ 1017  top -d 1
+ 1018  history -d
+
+……………………………………………………………………………………………………….
+
+Host name to fqdn :  
+
+while read host ; do host $host | cut -d' ' -f1,1 ; done < filename
+
+……………………………………………………………………………………………..
+
+Head and tail :
+'head' - display first 10 
+'head -n 15 filename' - Display first 15 lines .
+where n is number of  lines you need in output 
+........................................
+
+'tail' - display last 10 lines
+'tail -n 15 filename' - display  last 15 lines 
+
+............................................
+
+'cat filename | head/tail -n 15 '
+…………………………………………………………………………………………………………
+
+Run level Default :
+cat /etc/inittab - contains  all information about runlevels and default  run level .
+
+..............................
+Command chaining :
+
+for example to run mulltiple commands :
+free -m ; top ; ls -al 
+
+Independent .
+.....................................................
+
+Piping using command dependency !
+AND = &&
+OR = ||
+
+example : command 1  || command 2  : anyone executes the output will be generated , if one executes  the other doesnt .
+
+if command 1 is correct and executed the second one wont get executed.
+
+...............................................................
+command 1 && command 2  : two have to be sucesfful to  get an output 
+
+..............................................
+you can have a long string : Chain ! 
+
+pwd &&  ls &&  pwds 
+ 
+......................................................................................................................................................
+Removing files : 
+rm  - removes files
+rm -rf filename - removes directoryies 
+rm -rf filename* - remove all directoris starting with letter 
+filename.
+
+rm -rf filename[12] - can include range of files we want to delete.
+ removes directories filename1 and filename2 
+
+…………………………………………………………………………………………………………
+
+Linux / Unix: Find All The Files Owned By a Particular User / Group
+by VIVEK GITE on MARCH 28, 2006
+in FILE SYSTEM, LINUX, UNIX
+How do I list or find all the files owned by a particular system user or group under Linux or UNIX like operating systems using command line options?
+
+You need to use the find command to search for files in a directory hierarchy. It has options that allow you to search files owned by a specific user or groups under Unix / Linux / *BSD / Apple OS X operating systems.
+Find file owned by a group
+Tutorial details
+
+
+Difficulty
+Easy (rss)
+Root privileges
+No
+Requirements
+None
+Estimated completion time
+N/A
+
+Use the following syntax:
+
+find directory-location -group {group-name} -name {file-name}
+Where,
+§  directory-location : Locate the file in this directory path.
+§  -group {group-name} : Find the file belongs to group-name.
+§  -name {file-name} : The file name or a search pattern
+In this example, locate or find all files belongs to a group called "ftpusers" in the /home directory:
+# find /home -group ftpusers
+To find all *.c file belongs to a group called "ftpusers" in /data/project directory, run:
+# find /data/project -group ftpusers -name "*.c"
+OR do case insensitive search:
+# find /data/project -group ftpusers -iname "*.c"
+Find file owned by user
+The syntax is:
+find directory-location -user {username} -name {file-name}
+Where,
+§  directory-location : Locate files or directories in this directory location.
+§  -user { user-name } : Find the file belongs to user.
+§  -name {file-name} : File name or pattern.
+In this example, locate or find all file belongs to a user called "vivek" in /var directory:
+# find /apps -user web_xx
+To find all *.pl (perl files) file belongs to a user called "vivek" in /var/www directory, enter:
+# find /var/www -user vivek -name "*.pl"
+………………………………………………………………………………………………………
+Sed VI : 
+
+
+
+·               Home
+·               Shell Scripts
+·               Different methods
+·               awk & sed
+·               Q & A
+·               Contact
+·               About
+Wednesday, August 13, 2014
+sed - 20 examples to remove / delete characters from a file
+ 
+
+In this article of sed series, we will see the examples of how to remove or delete characters from a file. The syntax of sed command replacement is:
+
+$ sed 's/find/replace/' file
+ This sed command finds the pattern and replaces with another pattern. When the replace is left empty, the pattern/element found gets deleted.
+
+Let us consider a sample file as below:
+
+$ cat file
+Linux
+Solaris
+Ubuntu
+Fedora
+RedHat
+1. To remove a specific character, say 'a' 
+
+$ sed 's/a//' file
+Linux
+Solris
+Ubuntu
+Fedor
+RedHt
+  This will remove the first occurence of 'a' in every line of the file. To remove all occurences of 'a' in every line,
+
+$ sed 's/a//g' file
+2. To remove 1st character in every line:
+
+$ sed 's/^.//' file
+inux
+olaris
+buntu
+edora
+edHat
+  .(dot) tries to match a single character. The  ^ tries to match a pattern(any character) in the beginning of the line.   Another way to write the same:
+
+$ sed 's/.//' file
+  This tells to replace a character with nothing. Since by default, sed starts from beginning, it replaces only the 1st character since 'g' is not passed.
+
+3. To remove last character of every line : 
+
+$ sed 's/.$//' file
+Linu
+Solari
+Ubunt
+Fedor
+RedHa
+  The $ tries to match a pattern in the end of the line.
+
+4. To remove the 1st and last character of every line in the same command: 
+
+$ sed 's/.//;s/.$//' file
+inu
+olari
+bunt
+edor
+edHa
+   Two commands can be given together with a semi-colon separated in between.
+
+5. To remove first character only if it is a specific character: 
+
+$ sed 's/^F//' file
+Linux
+Solaris
+Ubuntu
+edora
+RedHat
+  This removes the 1st character only if it is 'F'.
+
+6. To remove last character only if it is a specific character: 
+
+$ sed 's/x$//' file
+Linu
+Solaris
+Ubuntu
+Fedora
+RedHat
+   This removed the last character only if it s 'x'.
+
+7. To remove 1st 3 characters of every line: 
+
+$ sed 's/...//' file
+ux
+aris
+ntu
+ora
+Hat
+  A single dot(.) removes 1st character, 3 dots remove 1st three characters.
+
+8. To remove 1st n characters of every line: 
+
+$ sed -r 's/.{4}//' file
+x
+ris
+tu
+ra
+at
+   .{n} -> matches any character n times, and hence the above expression matches 4 characters and deletes it.
+
+9. To remove last n characters of every line: 
+
+$ sed -r 's/.{3}$//' file
+Li
+Sola
+Ubu
+Fed
+Red
+  
+10. To remove everything except the 1st n characters in every line: 
+
+$ sed -r 's/(.{3}).*/\1/' file
+Lin
+Sol
+Ubu
+Fed
+Red
+  .* -> matches any number of characters, and the first 3 characters matched are grouped using parantheses. In the replacement, by having \1 only the group is retained, leaving out the remaining part.
+
+11. To remove everything except the last n characters in a file: 
+
+$ sed -r 's/.*(.{3})/\1/' file
+nux
+ris
+ntu
+ora
+Hat
+  Same as last example, except that from the end.
+
+12. To remove multiple characters present in a file: 
+
+$ sed 's/[aoe]//g' file
+Linux
+Slris
+Ubuntu
+Fdr
+RdHt
+   To delete multiple characters, [] is used by specifying the characters to be removed. This will remove all occurences of the characters a, o and e.
+
+13. To remove a pattern  : 
+
+$ sed 's/lari//g' file
+Linux
+Sos
+Ubuntu
+Fedora
+RedHat
+ Not just a character, even a pattern can be removed. Here, 'lari' got removed from 'Solaris'.
+
+14. To delete only nth occurrence of a character in every line: 
+
+$ sed 's/u//2' file
+Linux
+Solaris
+Ubunt
+Fedora
+RedHat
+  By default, sed performs an activity only on the 1st occurence. If n is specifed, sed performs only on the nth occurence of the pattern. The 2nd 'u' of 'Ubuntu' got deleted.
+
+15. To delete everything in a line followed by a character: 
+
+$ sed 's/a.*//' file
+Linux
+Sol
+Ubuntu
+Fedor
+RedH
+
+16. To remove all digits present in every line of a file: 
+
+$ sed 's/[0-9]//g' file
+  [0-9] stands for all characters between 0 to 9 meaning all digits, and hence all digits get removed.
+
+17. To remove all lower case alphabets present in every line: 
+
+$ sed 's/[a-z]//g' file
+L
+S
+U
+F
+RH
+  [a-z] represents lower case alphabets range and hence all lower-case characters get removed.
+
+18. To remove everything other than the lower case alphabets: 
+
+$ sed 's/[^a-z]//g' file
+inux
+olaris
+buntu
+edora
+edat
+   ^ inside square brackets negates the condition. Here, all characters except lower case alphabets get removed.
+
+19. To remove all alpha-numeric characters present in every line: 
+
+$ sed 's/[a-zA-Z0-9]//g' file
+    All alpha-numeric characters get removed.
+
+20. To remove a character irrespective of the case: 
+
+$ sed 's/[uU]//g' file
+Linx
+Solaris
+bnt
+Fedora
+RedHat
+ By specifying both the lower and upper case character in brackets is equivalent to removing a character irrespective of the case.
+……………………………………………………………………………………………………………………………………………………………………………
+Remove M spaces between lines :
+You can also use vi:
+Inside vi [in ESC mode] type: :%s/^M//g
+Note: To enter ^M, type CTRL-V + M. That is, hold down the CTRL key then press V and M in succession 
+
+*	Start in command mode.
+*	Go to the beginning of the file by pressing gg.
+*	Press qq.
+*	Click arrow down and press dd after.
+*	Press q.
+*	Press 10000@q
+
+PS: To go to comma
+
+……………………………………………………………………………………………………………………………………………………………………………….
+
+AWK : 
+
+Add a word to all lines in begining of the line .
+
+exp : $1 is feild and www is the word i need in starting and syed_rfc is the filename
+[sasye@host ~]$ awk '{print "www" $1}' syed_rfc
+
+
+
+Syntax : awk '{print "beginingword" $1}' filename
+.............................................................
+
+Add word to the end of each line 
+....................................
+
+whereas $1 is the feild and amex.com is the last word i want to add .
+
+
+
+Syntax : awk '{print $1 "lastword'}' filename
+
+
+[sasye@host ~]$ awk '{print $1 "amex.com"}' syed_rfc
+
+.................................................................
+
+Add , if you need space in between two feilds.
+
+[sasye@host ~]$ awk '{print $1, "amex.com"}' syed_rfc
+......................................................................................................................................................
+
+NC to scan ports :  
+
+To listen to ports
+from host 
+nc -l portnumber 
+
+..............
+from client 
+nc ip/hostname portnumber
+......
+
+to scan port 
+nc -z ip/hostname portnumbers..
+...........
+nc -v -z 127.0.0.1 25
+.........................
+………………………………………………………………………………………………………………………………………………………………………..
+
+Kill all PID of a user : 
+
+killall -u pu -m .
+where pu is my userid. Watch the dot at the end of the command.
+
+Also try
+
+pkill -u userid
+or
+
+ps -o pid -u user | xargs kill -1
+
+……………………………………………………………………………………………………………………………………………………………………………
+
+Loop  to many servers :  
+
+for i in {22,23}; do telnet host $i; done
+
+
+for i in $(ls);do echo "$i" 'done
+..............................
+……………………………………………………………………………………………………………………………………………………………………………….
+
+Scanning Ports : 
+
+15: How do I scan specific ports?
+
+map -p [port] hostName
+## Scan port 80
+nmap -p 80 192.168.1.1
+ 
+## Scan TCP port 80
+nmap -p T:80 192.168.1.1
+ 
+## Scan UDP port 53
+nmap -p U:53 192.168.1.1
+ 
+## Scan two ports ##
+nmap -p 80,443 192.168.1.1
+ 
+## Scan port ranges ##
+nmap -p 80-200 192.168.1.1
+ 
+## Combine all options ##
+nmap -p U:53,111,137,T:21-25,80,139,8080 192.168.1.1
+nmap -p U:53,111,137,T:21-25,80,139,8080 server1.cyberciti.biz
+nmap -v -sU -sT -p U:53,111,137,T:21-25,80,139,8080 192.168.1.254
+ 
+## Scan all ports with * wildcard ##
+nmap -p "*" 192.168.1.1
+ 
+## Scan top ports i.e. scan $number most common ports ##
+nmap --top-ports 5 192.168.1.1
+nmap --top-ports 10 192.168.1.1
+ 
+
+……………………………………………………………………………………………………………………………………………………………………
+
+Fuser to get pid of any file : 
+
+List the pid : 
+# fuser -m /dev/sdc1    ==>for mount files
+
+$ fuser -v ./             ===> for avaliable directories
+           USER        PID ACCESS COMMAND
+./:       himanshu   3965 ..c..    bash
+          himanshu   4175 ..c..    gedit
+          himanshu   4281 ..c..    bash
+          himanshu   4334 ..c..  socket_serv
+          himanshu   4337 ..c..    bash
+……………………………………………………………………………………………………………………………………………………………………
+
+
+Linux Services : 
+
+abrtd
+abrt-dump-oops :This tool creates problem directory from, updates problem directory with or prints oops extracted from FILE or standard input
+
+acpid :acpid is designed to notify user-space programs of ACPI events. acpid should be started during the system boot, and will run as a background process
+
+atd :atd runs jobs queued by 
+
+automount :The automount program is used to manage mount points for autofs, the inlined Linux automounter.
+
+certmonger :The certmonger daemon monitors certificates for impending expiration, and can optionally refresh soon-to-be-expired certificates with the help of a C
+
+crond : Cron searches /var/spool/cron for crontab files which are named after accounts in /etc/passwd; 
+
+cupsd :cupsd is the scheduler for CUPS. It implements a printing system based upon the Internet Printing Protocol, version 2.1. If no options are specified on the command-line then the default configuration file /etc/cups/cupsd.conf will be used.
+
+
+ip6tables:
+
+irqbalance :The purpose of irqbalance is distribute hardware interrupts across processors on a multiprocessor system in order to increase performance.
+
+messagebus :provides one-to-one communication between any two applications; 
+
+rpc.statd : A daemon that listens for reboot notifications from other hosts, and manages the list of hosts to be notified when the local system reboots
+
+nscd :Nscd is a daemon that provides a cache for the most common name service requests. The default configuration file, /etc/nscd.conf, determines the behavior of the cache daemo
+
+nslcd : Ldap service (is a daemon that will do LDAP queries for local processes based on a simple configuration file)
+
+
+ntpd : Network time protocol Daemon
+
+oddjobd : oddjobd — privileged operations for unprivileged processes ( It also create home directories for ldap)
+
+mcollectived : Puppet related services .
+
+rhsmcertd : Periodically scans and updates the entitlement certificates on a registered system.
+ 
+rpcbind : rpcbind - universal addresses to RPC program number mapper
+The rpcbind utility is a server that converts RPC program numbers into universal addresses. 
+
+rsyslogd :Rsyslogd is a system utility providing support for message logging. Support of both internet and unix domain sockets enables this utility to support both local and remote logging.
+
+ 
+sendmail :Sendmail service
+
+sm-client : starts sendmail service 
+
+openssh-daemon : ssh service service .
+
+vmtoolsd : 
+Symantec
+xinetd
+
+List the pid : 
+# fuser -m /dev/sdc1
+$ fuser -v ./
+           USER        PID ACCESS COMMAND
+./:       himanshu   3965 ..c..    bash
+          himanshu   4175 ..c..    gedit
+          himanshu   4281 ..c..    bash
+          himanshu   4334 ..c..  socket_serv
+          himanshu   4337 ..c..    bash
+………………………………………………………………………………………………………………………………………………………………………………
+Edit fstab problems : 
+mount -o remount,rw /
+
+…………………………………………………………………………………………………………………………………………………………………………….
+Display connect time  of a user  : 
+Display connect time of users
+
+Loged in : $ ac –d
+
+All users : ac -p
+
+Specific :$ ac -d username
+......................................................................................................................................................
+
+Move  putty session to another computer  : 
+
+Move Putty sessions to another computer
+PuTTY stores all the session information in Windows registry. On the
+source machine, export the PuTTY session registry information as shown
+below.
+C:> regedit /e "%userprofile%\desktop\putty-registry.reg"
+HKEY_CURRENT_USER\Software\Simontatham
+………………………………………………………………………………………………………………………………………………………………………….
+
+Backups : 
+
+ 1037  tar -cvjf nback.tar.bz2 nlong
+ 1038  du -csh nback.tar.bz2
+ 1041  tar -cvzf nback.tar.gz nlong
+ 1042  tar -cvf nback.tar nlong
+ 1043  du -csh nback*
+ 1044  du -csh n*
+tar –xvf filename.tar –to untar reg tar file
+tar –xvf filename.tar.gz –to untar .gz tar file
+tar –xvf filename.tar.bz2 ---to untar .bz2 tar file
+
+To list files .
+tar –tvf filename.tar
+tar -ztvf pics.tar.gz
+tar -jtvf data.tbz2
+
+
+$ zcat big-file.txt.gz : View file without decompressing.
+………………………………………………………………………………………………………………………………………………………………………………
+
+Loop for LVM : 
+
+for i in $(ls /dev/mapper/oracle_vg-*); do mkfs.ext4 $i; done
+for i in $(ls /dev/mapper/oracle_vg-* | sort); do echo -e "$i\t$(echo /oracle/$(echo $i | sed "s/_/\//g" | grep -ioP "\-.*" | cut -c 2- | rev | cut -c 4- | rev))\t ext4\tdefaults\t0 0"; done
+you can use these for loops to create the filesystems and fstab entries once you rename the 
+
+……………………………………………………………………………………………………………………………………………………………………………….
+
+Loop for PRC group : 
+
+ pbrun -p mypolicy PRCC 2>&1 | grep -i host
+pbrun -p mypolicy PRCC 2>&1 | grep -i host
+ for i in `cat yum1`; do yum list installed |grep  -i $i || echo "$i not found"; done >> test
+find . -type l -ls
+
+…………………………………………………………………………………………………………………………………………………………………..
+to see hardlink or softlink
+be in /bin to run 
+: find . -type l -ls
+
+check inet 6 is disable 
+
+ifconfig -a | grep -i inet
+…………………………………………………………………………………………………………………………………………………………………………….
+just check for the  avaliablity 
+
+in /etc/.groups.allow 
+.....................
+lsblk -i 
+.........................
+
+pbrun -p mypolicy PRC
+.......................
+
+ls -ltr /apps
+……………………………………………………………………………………………………………………………….
+
+Creating SSH shortcut from desktop:
+
+1) Righclick on desktop 
+2) Create shortcut 
+3) Add F\programfiles\putty.exe -ssh username@servername -pw password 
+4) "C:\Program Files\PuTTY\putty.exe" user@server.com -pw password
+………………………………………………………………………………………………………………………………
+
+Copying Multiple Files : 
+
+Copy multiple files with dates :
+
+
+find -name 'iptables.hostname*' -exec echo cp {} ../backup/{}_07132016 \;
+
+Copy multiple files with customized dates :
+
+
+find -regextype posix-extended -regex '.*host(project|project).*' -exec echo cp {} ../backup/{}_07132016 \;
+
+Copy files without custom dates :
+
+[root@hqidlinfcm01 d]# cp -v iptables.hqidl{gld,frd}* ../backup/
+
+
+
+find -regextype posix-extended -regex '.*hostname(project|project).*' -exec echo cp {} ../backup/{}_07132016 \;
+
+
+
+
+find -regextype posix-extended -regex '.*host(project|project|project|project).*' -exec echo cp {} ../backup/{}_08242016 \;
+
+.....................................................................................................................................
+Replace each line and convert to anything . (Notepad ++)
+
+Open the find and replace dialog (press CTRL+H).
+
+Then select Regular expression in the 'Search Mode' section at the bottom.
+
+In the Find what field enter this: [\r\n]+
+
+In the Replace with: ,
+……………………………………………………………………………………………………………………………………………………………………………….
+
+Remove duplicate lines :
+
+ sort filename | uniq
+
+……………………………………………………………………………………………………………………………………………………………………………….
+
+Find highest utilization disk :
+
+find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+
+To find the largest 10 directories:
+
+find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+………………………………………………………………………………………………………………………………………………….
+
+Redirect output to multiple files .
+
+cat filename| tee -a host{1..8} 
+
+cat sftp | tee -a iptables.host{project,project,project}*
+Remove starting white spaces :  
+
+sed "s/^[ \t]*//" iptables.host{project,project}* -i
+
+
+……………………………………………………………………………………………………………………………………………………………..
+
+Multiple putty login : In excel sheet generate the colum D and paste in CMD.
+
+Put in column A :
+start /B "myputty" "F:\Program Files (x86)\PuTTY\putty.exe" -t  sasye@
+
+Put in Colum B :
+
+Hostname
+
+Column C 
+
+-pw password 
+
+Colum  D 
+
+=A1&B1&C1
+
+Sample column D output : 
+
+start /B "myputty" "F:\Program Files (x86)\PuTTY\putty.exe" -t  sasye@hostname -pw Password 
+…………………………………………………………………………………………………………………..
+
+LDAP issue :
+
+service nslcd restart
+  998  service  oddjobd status
+  999  service  oddjobd restart
+
+……………………………………………………………………………………………………………………………………………………………………………
+CRS start / stop 
+/usr/app/grid/product/11.2.0.4/bin/crsctl stop crs -f
+/usr/app/grid/product/11.2.0.4/bin/crsctl start crs
+
+
+
+service oracleasm start
+service oracleasm stop
+…………………………………………………………………………………………………………………………………………………………………………
+MAC address replication :
+
+Redhat 
+
+1.	Connect to vCenter Server using the vSphere Client 
+2.	Right-click the virtual machine and click Edit Settings. 
+3.	Click Network adapter and note the MAC Address. 
+	
+	For example, you see a MAC Address similar to:
+	
+	xx:xx:xx:xx:xx:xx
+	
+	
+4.	Power on the Linux virtual machine. 
+5.	Open a console and log in as root. 
+6.	Change directory to etc/sysconfig/network-scripts. 
+7.	Edit ifcfg-eth0 using a plain text editor and update the MAC address to reflect the MAC address in Step 3.
+	
+	For more information, see Editing files on an ESX host using vi or nano (1020302) (/selfservice/search.do?cmd=displayKC&docType=kc&docTypeID=DT_KB_1_1&externalId=1020302).
+	
+	
+8.	Activate the ethernet card by running this command:
+	
+	ifup eth0. 
+……………………………………………………………………………………………………………………………………………………………………………
+Search admin pid :
+
+killall httpd && service httpd stop && sed -i 's/PIDFILE=\/apps\/IBM\/HTTPServer\/logs\/admin.pid/PIDFILE=\/apps\/logs\/websphere\/httpserver\/admin.pid/' /apps/IBM/HTTPServer/bin/adminctl && service httpd start
+
+……………………………………………………………………………………………………………………………………………………………………………
+Arranging lines with sed : 
+
+arrange lines with sed 
+
+'pbrun sed -i "s/\(AgentIdFile.*\)\(LogFileName.*\)/\1\n\2/g" /apps/IBM/HTTPServer/conf/WebAgent.conf'
+
+
+     sed 's|/some/UNIX/path|/a/new/path|g' files
+
+…………………………………………………………………………………………………………………………………………………………………………..
+
+Copy SSH keys to server :
+
+cat ~ssh-keygen -t rsa && /.ssh/id_rsa.pub | ssh sasye@$i 'cat >> .ssh/authorized_keys'
+
+
+while read i ; do ssh-keygen -t rsa && cat ~/.ssh/id_rsa.pub | ssh sasye@$i 'cat >> .ssh/authorized_keys';done
+……………………………………………………………………………………………………………………………………………………………………………
+
+Smreg command :
+
+/opt/CA/siteminder-intranet/webagent/bin/smreghost -i policyserver -u userid -p password -hn hostname -hc env_host_configuration -o -f /opt/CA/siteminder-intranet/webagent/config/SmHost.conf
+
+………………………………………………………………………………………………………………………………………………………………………………
+mULTIPLE COMMANDS 
+
+#!bin/bash
+d=$(pwd)
+e=$(ls)
+f=$(df -h)
+g=$(hostname)
+echo "the current directory i am using is $d and number of files in it is $e and the total space is $f and the name of the server is  $g"
+~
+………………………………………………………………………………………………………………………………………………………………………
+wITH  MONTHS :
+touch myfile.txt`date +%Y_%m_%d_%H:%M:%S`
+
+…………………………………………
+Loops for checking user :
+
+while read i; do val=`echo $i | awk '{print $1}'`; int=`echo $i | awk '{print $2}'`; ud=`id -u $val`; (($val = $ud)) && echo  "Match"; done <uids
+
+………………………………………………………………………………………………………………………………………………………………………………
+Server not accessible : 
+-Ping the server from unixsa
+- if ping doesnt work
+- go to virtual station and open the particular env
+- and check the server state .
+- if it shows disconnected just the host .
+- might be host is down .
+…………………………………………………………………………………………………………………………………………………………………………
+Migration while host is disconnected :
+1. remove the host from vcenter
+2. re-register the vm's on different host(s)
+3. Turn of the machine that is running on the disconnected host
+4. Turn on the machine re-regsitered on the cluster host(s)
+………………………………………………………………………………………………………………………………………………………………………………
+Deleting a cluster :
+service ibm_was stop
+	service ibm_was stop
+
+/apps/IBM/WebSphere/AppServer/bin/manageprofiles.sh -deleteAll && rm -rf /apps/IBM/WebSphere/AppServer/profiles/default
+
+chkconfig --del apachectl && rm /etc/init.d/phs_was 
+……………………………………………………………………………………………………………………………………………………………………………….
+
+
+Open SSL commands :
+ 
+1007  openssl genrsa -des3 -out appname.key 2048
+ 1008  ls -ltr
+ 1009  openssl req -new -nodes -days 3652 -key appname.key -x509 -out appname.crt
+ 1010  openssl req -new -nodes -key appname.key -out appname.csr
+
+3b. convert certs into different formats. Important as HP team excepts only PEM format
+openssl x509 -in <@url@>.crt -out <@url@>.der -outform DER
+openssl x509 -in <@url@>.der -inform DER -out <@url@>.pem -outform PEM
+
+……………………………………………………………………………………………………………………………………………………………………………
+
