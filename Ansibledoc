@@ -1,0 +1,98 @@
+Ansible documentation
+                                  Host 
+To check all the hosts 
+[elliot@control plays]$ ansible all -i myhosts --list-hosts 
+(-i) specify the host inventory file else ansible will look for /etc/ansible/hosts
+
+
+Manage your host in host groups
+[test]
+Node 1
+Node2
+
+[prod]
+Node3
+Node4
+
+ansible prod -i myhosts --list-hosts 
+( Will give you list of all prod host )
+
+You can also subgroup the hosts as childerens 
+[development:children] 
+ web_dev 
+db_dev
+……………………………………………………………………………………………………………
+
+
+[elliot@control plays]$ ansible --version  → To get the version
+……………………………………………………………………………………………………
+                                          
+
+
+
+
+                                               Settings 
+
+
+                                      Command ad-hoc 
+ansible all -i 10.2.1.1, -m command -a “uname -a” —become -u ansible
+ ansible  -m command -a "uptime" -i prod.yml 10.1.131.244
+ansible all -m command -a "uptime"
+                                              Modules 
+The command module is one of the many modules that Ansible has to offer. You can run the ansible-doc -l command to see a list of all the available Ansible modules: [elliot@control plays]$ ansible-doc -l | wc -l 3387
+
+
+
+Open up modules 
+
+[root@tst-tstla-101 STIG]# ansible-doc yum
+> YUM    (/usr/lib/python2.7/site-packages/ansible/modules/packaging/os/yum.py)
+
+        Installs, upgrade, downgrades, removes, and lists packages and groups with the `yum' package manager. This module only works on Python 2. If you require
+        Python 3 support see the [dnf] module.
+
+  * This module is maintained by The Ansible Core Team
+  * note: This module has a corresponding action plugin.
+
+OPTIONS (= is mandatory):
+
+…………………………………………………………………………………………………………
+Difference between - Command Module , Shell Module and Raw module
+
+
+
+
+
+
+
+[root@tst-tstla-101 STIG]# ansible all -m command -a "ip a | grep ens"
+[WARNING]: Platform linux on host tst-tstla-91.systems.eagle.org is using the discovered Python interpreter at /usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+tst-tstla-91.systems.eagle.org | FAILED | rc=255 >>
+Command "|" is unknown, try "ip address help".non-zero return code
+[root@tst-tstla-101 STIG]# ansible all -m shell -a "ip a | grep ens"
+[WARNING]: Platform linux on host tst-tstla-91.systems.eagle.org is using the discovered Python interpreter at /usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+tst-tstla-91.systems.eagle.org | CHANGED | rc=0 >>
+2: ens192: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    inet 10.1.131.248/22 brd 10.1.131.255 scope global noprefixroute ens192
+[root@tst-tstla-101 STIG]#
+
+
+
+
+
+RAW module doesn’t require Python 
+[root@tst-tstla-101 STIG]# ansible all -m raw -a "ip a | grep ens"
+
+……………………………………………………………………………….
+                                    Playbooks
+
+
+YAML - rules 
+Begining of the file : —  (Three hyphen)
+End of the file : … ( three dot)
+YAML FILES MUST HAVE .yaml or .yml 
+
+
+Format to write first playbook where i have used file module 
