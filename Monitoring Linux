@@ -1,0 +1,33 @@
+Performance and Monitoring - Linux 
+
+[root@devfrela001 ~]# ps
+USER         PID %CPU %MEM    VSZ ( virtual memory )   RSS( Residual) TTY      STAT START   TIME COMMAND
+root           1  0.0  0.4 175756 16172 ?        Ss   10:08   0:01 /usr/lib/systemd/systemd --switched-root --system --deserialize 19
+PID - Process ID 
+TTY - cONSOLE , tty ? means started by system itself
+PTS - Terminal to your system 
+TIME - CPU time of the process
+CMD - command 
+RSS is the Resident Set Size and is used to show how much memory is allocated to that process and is in RAM. It does not include memory that is swapped out. It does include memory from shared libraries as long as the pages from those libraries are actually in memory. It does include all stack and heap memory.
+VSZ is the Virtual Memory Size. It includes all memory that the process can access, including memory that is swapped out, memory that is allocated, but not used, and memory that is from shared libraries.
+To see every process on the system using standard syntax: ps -ef
+To see every process on the system using BSD syntax:
+          ps ax
+          ps axu
+ To print a process tree:
+          ps -ejH
+          ps axjf
+for specific user ps -U username
+Sort by memory usage
+ps ax --format pid,%mem,cmd --sort -%mem | less
+..................................................................................................
+                TOP --shift + m - memory as per
+Tasks: 328 total,   1 running, 327 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us ( User process),  3.0 sy ( System process),  0.0 ni ( Priority), 93.9 id ( Idel not in use),0.0 wa ( waiting for IO operations - issue with disk),3.0 hi (Hardware interupt),0.0 si(Software,0.0 still time)
+MiB Mem :   3585.0 total,   2529.6 free,    508.3 used,    547.2 buff/cache
+MiB Swap:   5120.0 total,   5120.0 free,      0.0 used.   2791.1 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+      1 root      20   0  175756  16172  11096 S   0.0   0.4   0:01.16 systemd
+PID - PROCESS ID ; USER - PROCESS OWNER , PR - Priority , NI - NICE VALUE , VIRT - VIRTUAL MEMORY , RES - PHYSICAL MEMORY USED , SHR - SHARED MEMORY , S- STATE OF PROCESS ( R,Z,D,S), 
+.........................................................................
