@@ -51,6 +51,8 @@ Killing process
 kill pid -> kill process -> clean up and kill process step by step 
 kill -9 -> kill process forcefully 
 ..................................................
+sysstat package -> iostat ( IO devices , cpu ), mpstat ( cpu ) , sar - system activity report , pidstat , 
+
 
 
 
