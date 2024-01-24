@@ -30,4 +30,19 @@ MiB Swap:   5120.0 total,   5120.0 free,      0.0 used.   2791.1 avail Mem
     PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
       1 root      20   0  175756  16172  11096 S   0.0   0.4   0:01.16 systemd
 PID - PROCESS ID ; USER - PROCESS OWNER , PR - Priority , NI - NICE VALUE , VIRT - VIRTUAL MEMORY , RES - PHYSICAL MEMORY USED , SHR - SHARED MEMORY , S- STATE OF PROCESS ( R,Z,D,S), 
-.........................................................................
+.........................................................................'
+            MEMORY  
+free -m (mb) , free -g (gb) , free -s 2 ( Show output every 2 sec )
+[root@devfrela001 ~]# free
+              total         used        free      shared  buff/cache   available
+Mem:        3671064      521568     2582528        9684      566968     2856860
+Swap:       5242876           0     5242876
+TOTAL - How much memory total 
+Buff - kernel buffer memory - whenever application start it saves some space
+avaliable - how much avaliable
+..................................
+Monitor filesystem
+lsblk , df -h , du
+
+lsblk - disk with their partition 
+lsblk -fp   -- full partition with complete disk 
