@@ -53,6 +53,22 @@ kill -9 -> kill process forcefully
 ..................................................
 sysstat package -> iostat ( IO devices , cpu ), mpstat ( cpu ) , sar - system activity report , pidstat , 
 
+                                Iostat ->
+[root@tst-tstla-91 ~]# iostat
+Linux 5.4.17-2136.307.3.1.el8uek.x86_64 (tst-tstla-91.oracle.eagle.org)         01/24/2024   _x86_64_        (4 CPU)
 
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.02    0.01    0.04    0.00    0.00   99.93
+
+Device             tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn
+scd0              0.00         0.00         0.00       1040          0
+sda               0.09         0.15         3.10     650146   13676908
+dm-0              0.11         0.13         3.10     577346   13672773
+dm-1              0.00         0.00         0.00       2220          0
+
+devices - What all disk and partitions you have created on your system
+tps - The number of transfers per second ( higher process )
+/proc/stat --> collection of data run time its not saved 
+............................................
 
 
