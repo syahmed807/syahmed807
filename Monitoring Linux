@@ -70,5 +70,27 @@ devices - What all disk and partitions you have created on your system
 tps - The number of transfers per second ( higher process )
 /proc/stat --> collection of data run time its not saved 
 ............................................
+                  SAR 
+SAR - Monitor , CPU , Memory and IO -- Download and dig deep into issue -- 28 days 
+sar -P All 1  2 -- get cpu utization
+sar -P 1 1 3 - get cpu utilization of number 2
+
+sar -r -> memory 
+sar -b -> disk
+sar -u -> CPu usage
+sar -n DEV -> network stat
+sar -o output_file
+ time 
+sar -u -S 10:00 
+.....................................................................................
+SystemD timer :
+create unit files in systemd 
+................................................................................
+
+
+
+
+
+
 
 
