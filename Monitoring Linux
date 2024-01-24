@@ -86,7 +86,14 @@ sar -u -S 10:00
 SystemD timer :
 create unit files in systemd 
 ................................................................................
-
+Process management --> STAT or s
+d - Uninterrputed sleep - Backup is in place but disk is not unreachable -- ususally IO issues - disk issue
+r-Running - > Good 
+s - Sleep -> Interruptable sleep -> Waiting for a event to complete
+t - Stop -> process is completed 
+z - Zombie - process terminated but still running ( Parent process killed but child process is in use they get into zombie )
+w - Paging - 
+.....................................
 
 
 
