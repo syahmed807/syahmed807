@@ -42,11 +42,15 @@ Buff - kernel buffer memory - whenever application start it saves some space
 avaliable - how much avaliable
 ..................................
 Monitor filesystem
-lsblk , df -h , du
+lsblk , df -h , du , showmount - for nfs avaliable , /etc/mtab - mounted file system , 
 
 lsblk - disk with their partition 
 lsblk -fp   -- full partition with complete disk information
 ...........................
+Killing process 
+kill pid -> kill process -> clean up and kill process step by step 
+kill -9 -> kill process forcefully 
+..................................................
 
 
 
