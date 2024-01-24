@@ -45,4 +45,8 @@ Monitor filesystem
 lsblk , df -h , du
 
 lsblk - disk with their partition 
-lsblk -fp   -- full partition with complete disk 
+lsblk -fp   -- full partition with complete disk information
+...........................
+
+
+
