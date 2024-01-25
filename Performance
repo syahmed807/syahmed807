@@ -1,6 +1,6 @@
 CPU 
 metrix 
-Context SWITCH --- Multitasking -> kernel had to switch between multiple processes -> kernel scheduler
-RUN QUEUE
-CPU UTILIZATION 
+Context SWITCH --- Multitasking -> kernel had to switch between multiple processes -> kernel scheduler ( /proc/pid)
+RUN QUEUE -> Total number of active process 
+CPU UTILIZATION - top , sar 
 LOAD AVERAGE 
