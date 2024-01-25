@@ -1,6 +1,28 @@
 CPU 
-metrix 
+matrix 
 Context SWITCH --- Multitasking -> kernel had to switch between multiple processes -> kernel scheduler ( /proc/pid)
 RUN QUEUE -> Total number of active process 
-CPU UTILIZATION - top , sar 
-LOAD AVERAGE 
+CPU UTILIZATION - top , sar -P
+LOAD AVERAGE - uptime -- will show last 1 5 15 mins   ->> 10 5 15 shows high number then issue
+.........
+Memory 
+Physical - increases the speed 
+Swap -- when memory is full or 80% --idel process from physcial memory
+pages - memory is divided into chunks 
+free -m or free -g
+vmstat
+sar -r 
+32 bit only 4 gb
+64 bit unlimited
+..............................
+disk IO
+iostat
+sar -b 
+IO wait -- high io wait -- indicate problem in disk -- 1-4% above is high consistent above 10%
+read/seconds - under 10 ms is good
+tps - transactions per seconds 
+..............
+Network --tcp dump utility
+Packet loss - 
+tcpdump 
+
