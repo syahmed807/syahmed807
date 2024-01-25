@@ -100,7 +100,10 @@ dmesg - kernel messages , cpu messages
 lscpu - cpu information and how many cpu connected 
 .........................................
 demidecode - BIOS information . local hardware
-dmidecode -t chassis
+/sys/class - have all the hardware information
+[root@tst-tstla-91 ~]# dmidecode -t system  -> hardware information
+Manufacturer: VMware, Inc.
+Product Name: VMware Virtual Pl
  bios
   system
   baseboard
@@ -111,6 +114,14 @@ dmidecode -t chassis
   connector
   slot
 .............................................
+lspci - device information - PCI bus
+lsusb -- list connected usb devices
+.................
+hwloc - device computing elements 
+lshw - detailed information about hardware configuration
+.......................
+
+
 
 
 
