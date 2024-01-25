@@ -120,6 +120,8 @@ lsusb -- list connected usb devices
 hwloc - device computing elements 
 lshw - detailed information about hardware configuration
 .......................
+   Kernel settings
+/proc - static files - read only files
 
 
 
