@@ -1,0 +1,20 @@
+Kernel modules
+yum install Development tools 
+make all --> compile kernel module
+insmod module name --> load kernel module
+modinfo hello.ko --> show module
+lsmod | grep hello --> show module loaded
+dmesg | tail -1  -> show module loaded
+rmmod name --> remove module name
+ltrace --> show moudule calls 
+strace -o --> show system calls
+/etc/modprobe.d/ --> add kernel modules here
+Parameter tuning 
+sysctl -a --> kernel parameters show 
+cat /proc/sys/kernel/shmmni --> show the parameter value
+cat /etc/sysctl.conf -> edit kernel config
+cat /etc/sysctl.d/ --> make file
+sysctl -p --> kernel parameter changes without reboot.
+just load quick 
+sysctl -w parameter
+......................
