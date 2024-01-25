@@ -1,0 +1,6 @@
+CPU 
+metrix 
+Context SWITCH --- Multitasking -> kernel had to switch between multiple processes -> kernel scheduler
+RUN QUEUE
+CPU UTILIZATION 
+LOAD AVERAGE 
