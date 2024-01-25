@@ -94,6 +94,24 @@ t - Stop -> process is completed
 z - Zombie - process terminated but still running ( Parent process killed but child process is in use they get into zombie )
 w - Paging - 
 .....................................
+           Hardware components :
+dmesg - kernel messages , cpu messages
+................................................
+lscpu - cpu information and how many cpu connected 
+.........................................
+demidecode - BIOS information . local hardware
+dmidecode -t chassis
+ bios
+  system
+  baseboard
+  chassis
+  processor
+  memory
+  cache
+  connector
+  slot
+.............................................
+
 
 
 
