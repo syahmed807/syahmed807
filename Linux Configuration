@@ -43,4 +43,34 @@ Download the package nfs utils
 yum install nfs-utils
 showmount -e servername | grep /nfs_lin_plowman_tst_paul
 ....................................................................
+firewall settings :
+Allow port 
+firewall-cmd --zone=home --add-port=80/tcp
+List ports 
+firewall-cmd --zone=home --list-ports
+.......................................................
+Filesystems 
+160  DISK="/dev/sdb"
+  161  parted -s ${DISK} mklabel gpt
+  162  parted ${DISK} unit s
+  163  parted ${DISK} mkpart P1 xfs 2048s 100%
+  164  parted ${DISK} print
+  165  history
+  166  ls
+  167  fdisk -l
+  168  lsblk -i
+  169  vgs
+  170  vgcreate /dev/sdb1
+  171  vgcreate absinstall /dev/sdb1
+  172  lvcreate -l +100%FREE absinstall -n abslvm
+  173  lbs
+  174  lvs
+  175  xfs_grow /dev/absinstall/abslvm
+  176  mkfs.xfs /dev/absinstall/abslvm
+  177  vi /etc/fstab
+  178  mount -a
+  179  mkdir /absapps
+  180  mount -a
+  181  df -h
+ ........................................................................................
 
