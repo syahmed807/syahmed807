@@ -1,11 +1,14 @@
-User Management :
-
+User Management :m - create new home directory 
+-d -> for user defined home directory
+ useradd -m -c "Comment" -u userid -G secondarygroup1 username 
 
 #first change the password  
 passwd plowman
 #password set to expiry using 
 Passwd -e plowman 
 -l -> Lock , -u unlock, -S - status  
+change password at first login
+chage -d 0 username 
 #verify using 
 chage -l plowman
 .............................
