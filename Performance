@@ -1,7 +1,7 @@
 CPU 
 matrix 
 Context SWITCH --- Multitasking -> kernel had to switch between multiple processes -> kernel scheduler ( /proc/pid)
-RUN QUEUE -> Total number of active process 
+RUN QUEUE -> Total number of active process --> top
 CPU UTILIZATION - top , sar -P
 LOAD AVERAGE - uptime -- will show last 1 5 15 mins   ->> 10 5 15 shows high number then issue
 .........
