@@ -1,0 +1,33 @@
+Integer (int): Integers are whole numbers, positive or negative, without decimals. Examples of integers in Python include:
+5
+-10
+0
+
+Float (float): Floats represent real numbers and are written with a decimal point dividing the integer and fractional parts. Examples of floats in Python include:
+3.14
+-0.5
+2.0
+
+String (str): Strings are sequences of characters, enclosed in single or double quotes. Examples of strings in Python include:
+"Hello, World!"
+'Python is awesome'
+"12345"
+
+Boolean (bool): Booleans represent truth values, either True or False. Examples of booleans in Python include:
+True
+False
+
+List: Lists are ordered, mutable collections of items. Examples of lists in Python include:
+[1, 2, 3, 4, 5]
+['apple', 'banana', 'cherry']
+[1, 'hello', True]
+
+Tuple: Tuples are ordered, immutable collections of items. Examples of tuples in Python include:
+(1, 2, 3, 4, 5)
+('apple', 'banana', 'cherry')
+(1, 'hello', True)
+
+Dictionary (dict): Dictionaries are unordered collections of key-value pairs. Examples of dictionaries in Python include:
+{'name': 'John', 'age': 30, 'city': 'New York'}
+{1: 'apple', 2: 'banana', 3: 'cherry'}
+{'a': 1, 'b': 2, 'c': 3}
