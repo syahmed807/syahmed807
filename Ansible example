@@ -1,0 +1,22 @@
+Ping Module --> To check if servers are on 
+Shell Module -> to clean -> yum clean all 
+Shell Module -> to download the new repo file using curl
+
+yum module to upgrade all packages
+yum 
+name - '*'
+state -> latest
+exclude -> packages i want to exclude
+
+Shell : to check if the kernel was updated 
+rpm -q --last kernel
+
+register -> 
+tags : reboot 
+
+debug -> save output 
+
+pause : to wait for system to come up 
+
+wait for --> to check if server is responding to ssh 
+state -> started 
