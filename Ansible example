@@ -11,10 +11,10 @@ exclude -> packages i want to exclude
 Shell : to check if the kernel was updated 
 rpm -q --last kernel
 
-register -> 
+register -> save output 
 tags : reboot 
 
-debug -> save output 
+debug -> display output
 
 pause : to wait for system to come up 
 
