@@ -1,3 +1,5 @@
+umask - default - 0022 where max permission is 666 -> so 666-022 = 644 which is your default permission when you create any file
+..........................................................................................................
 Setting ENV variable globally and for users 
 Edit the .bashrc 
 Example adding umask 022 in .bashrc file
