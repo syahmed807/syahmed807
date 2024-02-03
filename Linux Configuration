@@ -1,3 +1,13 @@
+Setting ENV variable globally and for users 
+Edit the .bashrc 
+Example adding umask 022 in .bashrc file
+source .bashrc --> it doesnt require login and logout
+cat .bash_profile will run when you first login
+Export env variables - using ( EXPORT command)
+edit in /etc/profile : echo "Welcome $(whoami)"    ->> Edit globally
+it will print who logged in 
+.........................................................
+
 User Management :m - create new home directory 
 -d -> for user defined home directory
  useradd -m -c "Comment" -u userid -G secondarygroup1 username 
