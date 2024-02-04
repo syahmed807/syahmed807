@@ -1,3 +1,11 @@
+ACL permissions
+getfacl test
+cat /etc/passwd
+getfacl test
+setfacl -m ansible:rwx test
+getfacl test
+ 
+...............
 chmod u+rwx -> chmod u-rwx --> change user permission to file add with + and remove with - "rwx - read write execute"
 chmod g --> same for group
 chmod o ---> same for other 
