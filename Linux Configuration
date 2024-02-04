@@ -1,3 +1,7 @@
+inode is data structure - which have all the information of file other than data like permissions , ownership , timestamps
+running out of inodes means when filesystem reaches it max -- 
+df -ih find inode - and then clean as cleaning helps with lower down count , create new fs with higher count
+.................................................................................................................
 ACL permissions
 getfacl test
 cat /etc/passwd
