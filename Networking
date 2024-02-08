@@ -14,3 +14,37 @@ IMAP4
 SSH :SECURE VERSION OF TELNET ;AND SCP SECURE VERSION OF FTP ; NTP - NETWORK TIME PROTOCOL 
   ..................................
   
+TCP dump useful inf
+CP dump is a powerful network packet analyzer that captures and displays packet data on a network. The data captured can provide insights into network traffic, troubleshoot network issues, and analyze the communication between devices. Here are some useful pieces of information you can extract from a TCP dump:
+
+Source and Destination IP addresses: Identify the devices communicating on the network.
+
+Source and Destination Port numbers: Determine the application or service associated with the communication.
+
+Packet Timing: Analyze the timing between packets to identify delays or performance issues.
+
+Protocol Information: Identify the protocols used in the communication, such as TCP, UDP, ICMP, etc.
+
+Packet Size: Examine the size of packets to understand data transfer patterns and potential issues.
+
+Flags: Check TCP flags (e.g., SYN, ACK, FIN) to understand the state of the TCP connection.
+
+Payload Data: Inspect the actual data being transmitted for troubleshooting or security analysis.
+
+TCP Window Size: Evaluate the TCP window size to understand flow control and potential network congestion.
+
+Sequence and Acknowledgment Numbers: Track the sequence and acknowledgment numbers for TCP connections to identify out-of-order packets or retransmissions.
+
+Fragmentation: Detect fragmented packets and analyze how devices handle packet reassembly.
+
+ICMP Messages: Identify and analyze ICMP messages for network diagnostics and troubleshooting.
+
+DNS Requests and Responses: Capture and analyze DNS traffic to understand domain resolutions and potential DNS issues.
+
+HTTP Headers: Extract and inspect HTTP headers for web traffic analysis.
+
+SSL/TLS Handshakes: Identify encrypted connections and analyze SSL/TLS handshake details for security purposes.
+
+ARP (Address Resolution Protocol) Requests and Responses: Monitor ARP traffic for device discovery and network mapping.
+
+SYN Floods or other Network Attacks: Look for patterns that might indicate network attacks, such as SYN floods.
