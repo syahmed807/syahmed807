@@ -2,9 +2,18 @@ Grep
 
 
 sed
-
+s- substitute
+/ is delimeter - seperator 
+s/pattern/replacement
+g - global replacement
+p - print the current pattern space
+d - delete the pattern space and start the next cycle
+COMMAND:
+sed 's/apple/orange/ filename
+Extensions : -e script , -n automated printing of pattern , -i edits the file and takes backup , -r is to use regular extended expressions , -f read the script from a file , -h help , -V version information
 
 find 
+
 
 
 awk 
