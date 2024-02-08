@@ -1,3 +1,33 @@
+
+Addition
+echo "$((1+2))
+for loop 
+for i in `cat ports`;do echo "firewall-cmd --zone=public --permanent --add-port=$i/tcp";done
+while loop
+while read i ; do echo "firewall-cmd --zone=public --permanent --add-port=$i/tcp";done
+range 
+echo {1..3}
+Copy function
+#!/bin/bash
+function copy() {
+ cp $1 $2
+}
+usage : copy $1 $2
+....................
+check if previous command executed properly 0 means last command sucess
+if [ $? -eq 0 ]
+then
+ echo "Copy of /etc/login.defs Suceeded"
+else
+ echo "Copy Failed "
+fi
+.............................................................
+if port 0 is not there then addd .
+grep -qxF 'port 0' /etc/chrony.conf || echo 'port 0' >> /etc/chrony.conf
+......................................................................
+use file within file
+source /etc/audit/rules.d/audit.rules
+
 Grep
 
 
@@ -9,7 +39,7 @@ g - global replacement
 p - print the current pattern space
 d - delete the pattern space and start the next cycle
 COMMAND:
-sed 's/apple/orange/ filename
+sed 's/apple/orange/' filename
 Extensions : -e script , -n automated printing of pattern , -i edits the file and takes backup , -r is to use regular extended expressions , -f read the script from a file , -h help , -V version information
 
 find 
