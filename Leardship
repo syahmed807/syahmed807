@@ -1,0 +1,37 @@
+S - Situation
+T - Task
+A - Action
+R - Result 
+
+Difficult customer / Above and Beyond 
+S - Issues with Disk space as per aggreement 100GB Frusted and angry 
+T - I setup a call acknowledged his frustation and ask some time to look into it 
+A - Created a script to delete old files , added those servers as part of daily monitoring , talk to stake holders and got approval for additional 
+space for customer 
+Result - Customer was happy and came back to me all the time and reffered others 
+...................................................................................
+Outside area of Responsiblity  ---> Cared about long term goals 
+S - Moving to different OS for cost reduction Redhat - ORacle
+T - Leard the OS modules and file manipulation in python .
+A - moved all the basic script into python so it was easy to run on any OS
+r - management was very impressed as i cared about long term goals rather than short term 
+...........................................................................
+Outside area of responsiblity -->Above and Beyond
+S - Did a project at att which involved generating reports from Toad for my sql queries and dba where always busy
+T - i was excited to learn sql as it was not part of Job i was getting to do something outside my focus area
+A - Started learning basics of sql queries and setting up database on Toad 
+R - Starred generating the daily count with Toad with sql queries
+Our team was very Thankful as they didn't had to seek DBA help 
+...................................................
+Innovation Complex -- DR  or kSPLICE / lock files
+S - DTCC -> Customer had to test Unix command for their application and had no Background as they hired Non unix resources
+T - Setup a call with stake holders 
+A - Moved all the Unix commands to Autosys jobs 
+r - anyone with no unix background can run a command without any issue they just need to know their job name
+CFO was very happy and knowledged the innovation 
+...................................................
+High quality : Delivery --> OS hardning 
+S - Building systems for Utsystem -> Harden OS  
+T - Cross examine checklist multiple times 
+A - Automated using bash to generate reports / rEBOOT multiple times before delivering 
+R - 
