@@ -34,4 +34,36 @@ High quality : Delivery --> OS hardning
 S - Building systems for Utsystem -> Harden OS  
 T - Cross examine checklist multiple times 
 A - Automated using bash to generate reports / rEBOOT multiple times before delivering 
-R - 
+R - Deliver highest quality server builds which were secure 
+..............................................
+Uncomfort - Process into Place 
+S - Requirement to Continue working with Navy our server needs to cmmnc certified 
+T - It was challenging as we have to add a lot of security features as disable root login , only sudo , password to grub , audit ,
+A - Sarted with Learning OS security using MAC2 senstivite Stig , learnd tools like stig viewer , openscap 
+R - It was very challenging task but we were able to meet the 100% recommended hardning 
+....................................................
+Trust 
+S - Working with Multiple app teams 
+T - Take additional time to automate their process such as scripting evn varaible creating bash profiles
+A - Stand up calls every week to keep the customer update on the process 
+R - customer happy and trust comeback 
+................................................................
+Digdeep 
+S - PATCHED a server and it didn't update the kernel even though patch was sucessful
+T - checked thelogs checked changes and try to dig down deep into the basics kernel files etc
+A - Found out that the soft link of /boot/grub was missing which was causing kernel to not show updated version 
+r - i was able to fix the problem and our bridge was closed as it was escalation created documentation checklist for patching
+....................................................
+Delivery --
+S - dELIVER 50 SERVER IN A WEEK 
+T - setup calls -> priority , check ways to automated , utilize all tools 
+A - used lot of vmware templates ( Setting up network time consuming) bash scripting and wrote ansible playbook to automate post build 
+R - able to deliver a day before we did quality testing on last day 
+...........................
+COST saving 
+ansbile tower to awx 
+,....................
+Making changes on actual server instead of DR
+T - HPSA --> seperate ENV 
+a - jump server 
+r - isolation helped with aunthorized changes 
