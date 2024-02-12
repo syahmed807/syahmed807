@@ -1,5 +1,5 @@
 OSI model 
-TCP IP MODEL
+TCP IP MODEL - Transmission control protocol
 Application layer - Http ftp dns smtp telnet
 Transport layer - tcp / udp
 network layer - IP
@@ -9,8 +9,15 @@ Client - Send SYC request
 Server -  SYNC RECEIVED -> SYNC - ACK REQUEST
 CLIENT - ACK - CONNECTION ESTABLISHED
 .............................
-tCP HEADER :
-
+ip HEADER Is like mailbox -- postal system
+message ==> split == packets --> router to router 
+UDP - unrealible data protocol == packet loss -> live conference or webcam where speed is more imp than packet loss
+tCP --> Solve the problem such as packet loss , out of order packets ,duplicate packets and corrupted packets
+Header -> SOURCE PORT NUM DESTINATION 
+            SEQUENCE 
+          ACK NUMBER
+CHCKSUM - CHECK ERRORS
+DATA 
 .......................
 Ethtool ethtool ens33 --? show link 
 
