@@ -1,4 +1,20 @@
 OSI model 
+TCP IP MODEL
+Application layer - Http ftp dns smtp telnet
+Transport layer - tcp / udp
+network layer - IP
+......................
+3 way handshake 
+Client - Send SYC request
+Server -  SYNC RECEIVED -> SYNC - ACK REQUEST
+CLIENT - ACK - CONNECTION ESTABLISHED
+.............................
+tCP HEADER :
+
+.......................
+Ethtool ethtool ens33 --? show link 
+
+...................................
 Network Configuration
 Nmcli 
 nmcli connection show 
