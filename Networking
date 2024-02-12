@@ -1,4 +1,25 @@
 OSI model 
+Network Configuration
+Nmcli 
+nmcli connection show 
+nmcli connection add type ethernet ifname ens224 con-name ens224 ipv4.addresses 10.2.225.240/22 ipv4.method manual ipv6.method ignore autoconnect yes 
+nmcli connection down ens224 && nmcli connection up ens224
+To delete connnection
+ nmcli connection delete d97b97d5-0f7a-4c53-ad19-8841e6cd1f1f
+nmcli device reapply ens192  --> without reboot apply settings
+.......................................................
+NFS -
+Download the package nfs utils
+yum install nfs-utils
+showmount -e servername | grep /nfs_lin_plowman_tst_paul
+....................................................................
+firewall settings :
+Allow port 
+firewall-cmd --zone=home --add-port=80/tcp
+List ports 
+firewall-cmd --zone=home --list-ports
+.....................................................................
+
 
 Protocols : Protocol Suite TCP/IP 
 DNS -> service .
