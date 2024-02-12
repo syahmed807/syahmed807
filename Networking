@@ -1,3 +1,12 @@
+dhcp process
+D discover 
+O offer
+R request
+A acknowledge
+......................................
+HTTP REQUEST 
+HTTP RESPONSE
+....................................................
 OSI model 
 TCP IP MODEL - Transmission control protocol
 Application layer - Http ftp dns smtp telnet
