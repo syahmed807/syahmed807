@@ -112,3 +112,15 @@ SSL/TLS Handshakes: Identify encrypted connections and analyze SSL/TLS handshake
 ARP (Address Resolution Protocol) Requests and Responses: Monitor ARP traffic for device discovery and network mapping.
 
 SYN Floods or other Network Attacks: Look for patterns that might indicate network attacks, such as SYN floods.
+
+...............
+install ha proxy , in ha proxy cfg file /etc/haproxy/haproxy.cfg  ---> global settings defaults front end backend 
+balance algorithm name 
+Round Robin (default):distribute request sequentially in circular order
+least connection : give request to server with few active connection
+source ip hash -- send it to same clients for persistance
+least time - send to quick response server 
+weighted round robin -assign different weight to server amount of traffic each server handle
+weighted least connection - server capacity + least connection
+URO Hash - send request with same URI 
+random - route traffic to avaliable server 
