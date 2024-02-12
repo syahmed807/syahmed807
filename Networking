@@ -66,6 +66,17 @@ SNMP    .SMTP - EMAIL ,POP3
 IMAP4
 SSH :SECURE VERSION OF TELNET ;AND SCP SECURE VERSION OF FTP ; NTP - NETWORK TIME PROTOCOL 
   ..................................
+Open SSL commands :
+ 
+1007  openssl genrsa -des3 -out appname.key 2048
+ 1008  ls -ltr
+ 1009  openssl req -new -nodes -days 3652 -key appname.key -x509 -out appname.crt
+ 1010  openssl req -new -nodes -key appname.key -out appname.csr
+
+3b. convert certs into different formats. Important as HP team excepts only PEM format
+openssl x509 -in <@url@>.crt -out <@url@>.der -outform DER
+openssl x509 -in <@url@>.der -inform DER -out <@url@>.pem -outform PEM
+.............................................................................................
   
 TCP dump useful inf
 CP dump is a powerful network packet analyzer that captures and displays packet data on a network. The data captured can provide insights into network traffic, troubleshoot network issues, and analyze the communication between devices. Here are some useful pieces of information you can extract from a TCP dump:
