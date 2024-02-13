@@ -124,3 +124,16 @@ weighted round robin -assign different weight to server amount of traffic each s
 weighted least connection - server capacity + least connection
 URO Hash - send request with same URI 
 random - route traffic to avaliable server 
+................................................
+DNS 
+-->Browser type www.google.com it resolve domain --> iP Address
+browser => DNS will search matching IP address => Communicate yahoo server
+
+==> Phonebook --> look your number first by your name
+
+Steps 
+Browser type www.google.com => check cache memory -->If no
+Resolver => (ISP internet service provider ==> check cache memory) => no
+Root server (13 sets of root servers 12 differnt org owns)=>reroutes => TLD top level domain (org.com)
+TLD ==> redirect ==> Authorative named server ( Know everything about domain )
+CONNECTS TO YAHOO.COM
