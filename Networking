@@ -137,3 +137,25 @@ Resolver => (ISP internet service provider ==> check cache memory) => no
 Root server (13 sets of root servers 12 differnt org owns)=>reroutes => TLD top level domain (org.com)
 TLD ==> redirect ==> Authorative named server ( Know everything about domain )
 CONNECTS TO YAHOO.COM -> save in cache memory 
+
+DNS records 
+A (Address) Record:IP ADDRESS 
+
+The A record maps a domain name to the corresponding IPv4 address. It is commonly used to point a domain or subdomain to a specific web server.
+AAAA (IPv6 Address) Record:
+
+CNAME record creates an alias
+MX (Mail Exchange) Record:
+The MX record specifies the mail server responsible for receiving email messages for a domain. It includes the server's hostname and priority for handling incoming mail.
+
+TXT (Text) Record:
+The TXT record allows for the storage of arbitrary text data associated with a domain. It is commonly utilized for verification and authorization purposes, such as SPF (Sender Policy Framework) records for email authentication.
+
+NS (Name Server) Record:
+The NS record specifies the authoritative name servers for a domain, indicating which DNS servers are responsible for resolving that domain's DNS information.
+
+SOA (Start of Authority) Record:
+The SOA record contains authoritative information about a DNS zone, including details such as the primary name server for the zone and contact information for the domain administrator.
+
+PTR (Pointer) Record:
+The PTR record is used in reverse DNS lookups to map IP addresses to domain names, providing the reverse mapping of the A and AAAA records.
