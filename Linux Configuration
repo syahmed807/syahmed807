@@ -1,3 +1,4 @@
+
 inode is data structure - which have all the information of file other than data like permissions , ownership , timestamps
 running out of inodes means when filesystem reaches it max -- 
 df -ih find inode - and then clean as cleaning helps with lower down count , create new fs with higher count
@@ -127,4 +128,15 @@ sysctl -p --> kernel parameter changes without reboot.
 just load quick 
 sysctl -w parameter
 ......................
-
+host  mount point nfs rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536,nointr,nosuid,noexec 0 0
+rw: Mount the file system with read-write access.
+bg: If the first mount attempt fails, retry in the background.
+hard: The program using a file via an NFS connection will stop and wait (hang) if the server goes down.
+vers=3: Use NFS version 3.
+proto=tcp: Use the TCP protocol.
+timeo=600: Set the timeout value for a non-responding server to 600 deciseconds (60 seconds).
+rsize=65536 and wsize=65536: Set the read and write buffer sizes to 65536 bytes.
+nointr: Do not allow signals to interrupt file operations. If not specified, a signal can abort an NFS operation1.
+nosuid: Do not allow set-user-identifier or set-group-identifier bits to take effect.
+noexec: Do not allow direct execution of any binaries on the mounted filesystem
+...........
