@@ -15,8 +15,9 @@ chmod g --> same for group
 chmod o ---> same for other 
 chmod binary - chmod 744 -> ( 4 - read , 2 write , 1 execute)
 ..................................................
-soft link ln -s ---> files link count is always same 
+soft link ln -s ---> files link count is always same inode changes
 hardlink ln --> file link count change as you increment files by +1 for all files
+inode remain same 
 ........................................
 ...............
 umask - default - 0022 where max permission is 666 -> so 666-022 = 644 which is your default permission when you create any file
