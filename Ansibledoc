@@ -96,3 +96,48 @@ YAML FILES MUST HAVE .yaml or .yml
 
 
 Format to write first playbook where i have used file module 
+
+............
+
+
+Ansible offers a variety of functions beyond register and debug that cater to various functionalities within your playbooks and custom modules. Here's a breakdown of some commonly used functions and their purposes:
+
+Filtering and manipulating data:
+
+filter: Filters lists or dictionaries based on specific criteria.
+map: Applies a function to each element in a list and returns a new list.
+reduce: Applies a function iteratively across a list and returns a single value.
+set_fact: Sets the value of a variable within the current play or task.
+include_vars: Loads variables from a separate YAML file.
+Conditional logic:
+
+when: Conditionally executes a task based on a boolean expression.
+unless: The opposite of when, executes a task only if a condition is not met.
+Text manipulation:
+
+join: Joins a list of strings into a single string with a specified delimiter.
+replace: Replaces occurrences of a substring with another string.
+split: Splits a string into a list based on a delimiter.
+Looping:
+
+with_items: Iterates through a list of items, executing a task for each item.
+with_loop: Similar to with_items, allows more control over loop variables.
+with_subelements: Loops through sub-elements of a complex data structure.
+Working with files and directories:
+
+find: Locates files based on criteria like name, path, or attributes.
+lineinfile: Manages lines within a file (insert, replace, delete).
+template: Renders a template file with variables and conditionals.
+Error handling:
+
+fail: Halts playbook execution with an error message.
+rescue: Catches and handles errors gracefully, allowing continued execution.
+Interacting with external systems:
+
+uri: Makes HTTP requests to web servers and retrieves data.
+command: Executes a shell command on the remote system.
+set_fact (combined with external modules): Stores output from external modules in variables.
+Meta tasks:
+
+include: Includes another playbook or role within the current playbook.
+import_role: Imports a role from Ansible Galaxy for reusability.
