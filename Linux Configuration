@@ -1,4 +1,5 @@
-
+ssh syahmed-t1@tstfrelaa001.cmmc.eagle.org "hostname -f ;df -h | grep -i ABS ; vmstat "
+...........................................................................................................................
 inode is data structure - which have all the information of file other than data like permissions , ownership , timestamps
 running out of inodes means when filesystem reaches it max -- 
 df -ih find inode - and then clean as cleaning helps with lower down count , create new fs with higher count
