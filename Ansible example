@@ -20,3 +20,9 @@ pause : to wait for system to come up
 
 wait for --> to check if server is responding to ssh 
 state -> started 
+..................................
+vmware_vm: Manage virtual machines (create, power on/off, clone, etc.).
+vmware_guest: Manage software installation, file operations, and processes within VMs (requires VMware Tools installed in VMs).
+vmware_host: Manage ESXi hosts (configuration, power management).
+vmware_datastore: Manage datastores (create, delete, mount).
+vmware_folder: Manage VM folders within your vCenter inventory.
