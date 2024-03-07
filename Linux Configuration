@@ -1,4 +1,8 @@
 ssh syahmed-t1@tstfrelaa001.cmmc.eagle.org "hostname -f ;df -h | grep -i ABS ; vmstat "
+
+create file if not present
+
+grep -qxF 'port 0' /etc/chrony.conf || echo 'port 0' >> /etc/chrony.conf
 ...........................................................................................................................
 inode is data structure - which have all the information of file other than data like permissions , ownership , timestamps
 running out of inodes means when filesystem reaches it max -- 
