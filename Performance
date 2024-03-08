@@ -1,3 +1,19 @@
+
+Hp Proliant servers ( ILO ) - DL 560 
+Dell Power edge - (IDRAC ) - R760
+
+Install TFTPD package 
+
+Configure TFTP server ( Root directory IP address etc)
+
+Configure DHCP server ( with tftp server IP )
+
+Setup Netboot files
+
+Configure PXE menu
+
+Test PXE boot --? Boot clieny on same network from BIOS 
+................
 CPU 
 matrix 
 Context SWITCH --- Multitasking -> kernel had to switch between multiple processes -> kernel scheduler ( /proc/pid)
