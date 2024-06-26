@@ -1,0 +1,81 @@
+Cluster Info: kubectl cluster-info
+Nodes: kubectl get nodes
+Pods:kubectl get pods
+Services:kubectl get services
+Deployments:
+Create Deployment: kubectl create deployment <deployment-name> --image=<image-name>
+Scale Deployment:kubectl scale deployment <deployment-name> --replicas=<number-of-replicas>
+Rolling Updates:kubectl set image deployment/<deployment-name> <container-name>=<new-image>
+Undo Rolling Update:kubectl rollout undo deployment/<deployment-name>
+# Pods:
+Pod Logs: kubectl logs <pod-name>
+Exec into Pod: kubectl exec -it <pod-name> -- /bin/bash
+Copy files to/from Pod:kubectl cp <local-path> <pod-name>:<pod-path>
+ kubectl cp <pod-name>:<pod-path> <local-path>
+# Services:
+1. Expose Deployment:kubectl expose deployment <deployment-name> --type=NodePort --port=<port>
+2. Port Forwarding:kubectl port-forward <pod-name> <local-port>:<pod-port>
+# ConfigMaps and Secrets:
+Create ConfigMap:kubectl create configmap <configmap-name> --from-literal=key1=value1 --from-file=path/to/file
+Create Secret:kubectl create secret generic <secret-name> --from-literal=key1=value1 --from-file=path/to/file
+Networking:
+Ingress:kubectl apply -f ingress.yaml
+Network Policies:kubectl apply -f network-policy.yaml
+# Persistent Volumes and Claims:
+Create Persistent Volume:kubectl apply -f persistent-volume.yaml
+Create Persistent Volume Claim: kubectl apply -f persistent-volume-claim.yaml
+# Troubleshooting:
+1. Describe:kubectl describe <resource-type> <resource-name>
+2. Events:kubectl get events
+3. Get YAML of a Resource:kubectl get <resource-type> <resource-name> -o yaml
+4. Delete Resource:kubectl delete <resource-type> <resource-name>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+name: nginx-deployment
+labels:
+app: nginx
+spec:
+replicas: 3
+selector:
+matchLabels:
+app: nginx
+template:
+metadata:
+labels:
+app: nginx
+spec:
+containers:
+- name: nginx
+image: nginx:1.14.2
+ports:
+- containerPort: 80
+..............................................................
+Docker
+Docker hub for images
+Docker pull
+Docker run
+Docker ps to check how many process
+Docker exec image name sh— start using image bash
+Docker pull tags
+Docker run —memory
+Docker update —memory or —cpus
+Docker stats
+# Use an official base image
+FROM ubuntu:latest
+# Set environment variables
+ENV APP_HOME /app
+ENV CPU_LIMIT 0.5 # 0.5 CPU cores
+ENV MEMORY_LIMIT 512M # 512 megabytes
+# Create and set the working directory
+WORKDIR $APP_HOME
+# Copy your application files into the container
+COPY . .
+# Your additional setup and commands here
+# Command to run your application
+CMD ["your_application_command"]
+# Specify resource constraints
+CMD ["--cpus=${CPU_LIMIT}", "--memory=${MEMORY_LIMIT}"]
+Api server - entry point
+Controller manager keep track of whats happening in cluster
+Scheduler ensure pods placement
