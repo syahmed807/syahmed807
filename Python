@@ -8,6 +8,13 @@ import shutil - to copy
 Using arthemetic operators in python
 print((6 + 3) - (6 + 3))
 ..............................................
+Find number is odd 
+number = int(input("Enter a number:"))
+if number % 2 == 0:
+    print(" The number {number} is Even ")
+else:
+    print(" The number {number} is Odd ")
+..........................................................
 
 
 https://www.w3schools.com/python/python_datatypes.asp
