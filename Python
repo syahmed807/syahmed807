@@ -70,6 +70,13 @@ my_set.add(6)
 To remove items from a set, you can use the remove() method:
 my_set.remove(3)
 ..................................................
+Functions
+def sum( a , b):
+    return a + b
+
+result = sum(3, 5)
+print(result)
+..................................
 Script to add contents in python 
 
 import os
