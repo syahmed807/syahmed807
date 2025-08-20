@@ -26,3 +26,5 @@ vmware_guest: Manage software installation, file operations, and processes withi
 vmware_host: Manage ESXi hosts (configuration, power management).
 vmware_datastore: Manage datastores (create, delete, mount).
 vmware_folder: Manage VM folders within your vCenter inventory.
+
+sam.syed.3944@gmail.com
