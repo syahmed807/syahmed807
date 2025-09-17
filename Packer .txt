@@ -1,0 +1,84 @@
+Installations  
+653  2025-09-16 20:00:11 wget https://releases.hashicorp.com/packer/1.14.2/packer_1.14.2_linux_amd64.zip
+  654  2025-09-16 20:00:27 sudo zypper install unzip
+  655  2025-09-16 20:00:55 unzip packer_1.14.2_linux_amd64.zip 
+  656  2025-09-16 20:01:12 sudo mv packer /usr/local/bin/
+  666  2025-09-16 20:05:21 ./packer version
+  667  2025-09-16 20:05:41 cp /usr/local/bin/packer packer
+  668  2025-09-16 20:05:44 ./packer version
+  669  2025-09-16 20:05:50 ./packer help
+
+
+......................................
+
+
+
+
+Builder stage
+Provisioner 
+Post processor 
+
+Building -> Create a image 
+All platforms have different builders 
+Base AMI
+
+v1 ->
+v2 -> New instances
+
+Create a file example.pkr.hcl
+
+...............................
+
+Sample packer file  
+
+FYI : plugins change as per cloud provider 
+
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1.4.0"
+    }
+  }
+}
+
+source "amazon-ebs" "ubuntu" {
+
+    access_key = " "
+    secret_key = " " 
+    ami_name = "my-first-packer-image"
+    instance_type = "t2.micro"
+    region = "us-east-1"
+    source_ami = "aminumberfromconsoleaws"
+    ssh_username = "ec2-user"
+}
+ build {
+   name = "my-first-build"
+   source =["source.amazon-ebs.ubuntu"]
+   
+
+   provisioner "shell" {
+       inline = [
+          "sudo apt install nginx -y",
+          "sudo systemctl start nginx",
+          "echo 'y' | sudo ufw enable"
+      ]
+  } 
+
+  post-processor "vagrant" {}
+  post-processor "compress" {}
+
+}
+
+
+.....................................................
+
+packer init . -> current directory . initilizate plugin
+packer fmt .  -> format checks and remove and fix spaces 
+packer validate -> validate the packer file  --> config valid 
+packer build nameoffile --> final step to build the image 
+
+
+
+
+
