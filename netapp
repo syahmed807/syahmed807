@@ -1,0 +1,34 @@
+
+
+🔁 ASYNCHRONOUS (Most Common)        ⚡ SYNCHRONOUS (Real-Time)
+-----------------------------------------------------------------------
+
+# Create relationship
+snapmirror create                    snapmirror create
+-source-path src:vol                -source-path src:vol
+-destination-path dest:vol          -destination-path dest:vol
+-type XDP                           -type SYNC
+
+
+# Initialize (first copy)
+snapmirror initialize               snapmirror initialize
+-destination-path dest:vol          -destination-path dest:vol
+
+
+# Schedule updates (IMPORTANT)
+snapmirror modify                   ❌ Not needed
+-destination-path dest:vol
+-schedule hourly
+
+
+# Update manually
+snapmirror update                   ❌ Not used (auto sync)
+-destination-path dest:vol
+
+
+# Check status
+snapmirror show                     snapmirror show
+
+
+# Break (failover)
+snapmirror break                    snapmirror break
