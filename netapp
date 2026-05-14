@@ -13,7 +13,7 @@ Assign policy to volume
 volume modify -vserver vs1 -volume data_vol -policy default
 Client mount (Linux)
 mount -t nfs server_ip:/data_vol /mnt
-
+----------------------------------------------------------------------------------------------------
 Snapshot 
 ⚙️ Basic Snapshot Operations
 1. Create Snapshot
@@ -33,6 +33,33 @@ snapshot policy create -policy daily_policy
 👉 Attach to volume:
 
 volume modify -vserver vs1 -volume data_vol -snapshot-policy daily_policy
+-------------------------------------------------------------------------------------------
+🏗️ What is an Aggregate?
+
+Answer:
+
+An aggregate in NetApp is a collection of physical disks combined into a storage pool, from which volumes are created.
+
+👉 Simple:
+
+“Aggregate = big storage pool made of disks”
+
+🧠 How it fits (Big Picture)
+Disks → Aggregate → Volume → Data (NFS/SMB)
+📦 Key Points
+Built using multiple physical disks
+Provides storage space for volumes
+Uses RAID (data protection)
+Managed at the cluster level
+⚙️ Basic Commands
+View aggregates
+aggr show
+Create aggregate
+aggr create -aggregate aggr1 -diskcount 10
+Add disks
+aggr add -aggregate aggr1 -diskcount 2
+----------------------------------------------------------------------------------------------------------------------------------
+Snapmirror
 
 
 🔁 ASYNCHRONOUS (Most Common)        ⚡ SYNCHRONOUS (Real-Time)
