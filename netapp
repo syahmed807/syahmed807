@@ -14,6 +14,27 @@ volume modify -vserver vs1 -volume data_vol -policy default
 Client mount (Linux)
 mount -t nfs server_ip:/data_vol /mnt
 
+Snapshot 
+⚙️ Basic Snapshot Operations
+1. Create Snapshot
+snapshot create -vserver vs1 -volume data_vol -snapshot snap1
+2. View Snapshots
+snapshot show
+3. Delete Snapshot
+snapshot delete -vserver vs1 -volume data_vol -snapshot snap1
+4. Restore from Snapshot
+snapshot restore -vserver vs1 -volume data_vol -snapshot snap1
+🔁 Snapshot Policy (Automation)
+
+👉 Automatically creates snapshots at intervals
+
+snapshot policy create -policy daily_policy
+
+👉 Attach to volume:
+
+volume modify -vserver vs1 -volume data_vol -snapshot-policy daily_policy
+
+
 🔁 ASYNCHRONOUS (Most Common)        ⚡ SYNCHRONOUS (Real-Time)
 -----------------------------------------------------------------------
 
