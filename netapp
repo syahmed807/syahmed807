@@ -1,4 +1,18 @@
+NFS volume management :
 
+Basic NFS Commands (NetApp style)
+Enable NFS
+vserver nfs create -vserver vs1
+Create volume
+volume create -vserver vs1 -volume data_vol -aggregate aggr1 -size 100GB
+Create export policy
+export-policy create -vserver vs1 -policyname default
+Add rule (who can access)
+export-policy rule create -vserver vs1 -policyname default -clientmatch 0.0.0.0/0 -rorule any
+Assign policy to volume
+volume modify -vserver vs1 -volume data_vol -policy default
+Client mount (Linux)
+mount -t nfs server_ip:/data_vol /mnt
 
 🔁 ASYNCHRONOUS (Most Common)        ⚡ SYNCHRONOUS (Real-Time)
 -----------------------------------------------------------------------
