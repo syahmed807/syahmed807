@@ -55,7 +55,7 @@ Managed at the cluster level
 View aggregates
 aggr show
 Create aggregate
-aggr create -aggregate aggr1 -diskcount 10
+aggr create -aggregate aggr1 -diskcount 10 -raidtype raid_dp
 Add disks
 aggr add -aggregate aggr1 -diskcount 2
 ----------------------------------------------------------------------------------------------------------------------------------
